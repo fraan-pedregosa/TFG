@@ -5,7 +5,7 @@ from flask import (
 )
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from flaskr.db import get_db
+from flaskr.db import get_users_db
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -32,7 +32,7 @@ def register():
 
         if error is None:
             try:
-                collection_users = get_db().users
+                collection_users = get_users_db()
                 collection_users.insert_one({
                     'name': name,
                     'email': email,
@@ -54,7 +54,7 @@ def login():
         email = request.form['email']
         password = request.form['password']
         error = None
-        user = get_db().user.find_one({'email': email})
+        user = get_users_db().find_one({'email': email})
         if user is None:
             error = 'El correo electrónico no existe.'
         elif not check_password_hash(user['password'], password):
@@ -73,7 +73,7 @@ def load_logged_in_user():
     if user_id is None:
         g.user = None
     else:
-        g.user = get_db().user.find_one({'_id': user_id})
+        g.user = get_users_db().find_one({'_id': user_id})
 
 @bp.route('/logout')
 def logout():

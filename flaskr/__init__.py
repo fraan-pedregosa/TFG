@@ -18,7 +18,7 @@ def create_app(test_config=None):
     app.config['MONGO_DB'] = 'sound'
     app.config['MONGO_COLLECTION'] = 'sound_collection'
     app.config['MONGO_COLLECTION_USERS'] = 'users_collection'
-    
+
     mongo = PyMongo(app)
 
     if test_config is None:
@@ -38,9 +38,6 @@ def create_app(test_config=None):
     @app.route('/hello')
     def hello():
         return 'Hello, World!'
-
-    from . import db
-    db.init_app(app)
 
     from . import auth
     app.register_blueprint(auth.bp)
