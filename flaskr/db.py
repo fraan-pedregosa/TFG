@@ -7,7 +7,7 @@ def get_users_db():
     if 'users_db' not in g:
         client = pymongo.MongoClient(current_app.config['MONGO_URI'])
         db = client[current_app.config['MONGO_DB']]
-        g.users_db = db['users']
+        g.users_db = db['users_collection']
 
     return g.users_db
 
