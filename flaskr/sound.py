@@ -12,7 +12,7 @@ bp = Blueprint('sound', __name__)
 
 @bp.route('/')
 def index():
-    sound_collection = get_sound_db().sound_collection
+    sound_collection = get_sound_db()
     sound = sound_collection.find().sort('_id', pymongo.DESCENDING)
     return render_template('sound/index.html', sound=sound)
 
