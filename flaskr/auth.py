@@ -7,6 +7,8 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 from flaskr.db import get_users_db
 
+from bson import ObjectId
+
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
 @bp.route('/register', methods=('GET', 'POST'))
@@ -61,11 +63,12 @@ def login():
             error = 'La contraseña es incorrecta.'
         if error is None:
             session.clear()
-            session['user_id'] = user['_id']
+            session['user_id'] = str(user['_id'])  # Convert ObjectId to string before storing in session return redirect(url_for('index'))
             return redirect(url_for('index'))
         flash(error)
     return render_template('auth/login.html')
 
+        
 @bp.before_app_request
 def load_logged_in_user():
     user_id = session.get('user_id')
@@ -73,7 +76,8 @@ def load_logged_in_user():
     if user_id is None:
         g.user = None
     else:
-        g.user = get_users_db().find_one({'_id': user_id})
+        # Convert the string back to ObjectId before fetching the user from the database
+        g.user = get_users_db().find_one({'_id': ObjectId(user_id)})
 
 @bp.route('/logout')
 def logout():

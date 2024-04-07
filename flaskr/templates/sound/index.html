@@ -18,6 +18,7 @@
         {% if g.user['id'] == post['author_id'] %}
           <a class="action" href="{{ url_for('sound.update', id=post['id']) }}">Edit</a>
         {% endif %}
+        <h1>Hello world</h1>
       </header>
       <p class="body">{{ post['body'] }}</p>
     </article>
