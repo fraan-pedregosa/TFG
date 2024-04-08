@@ -9,6 +9,7 @@ from flaskr.db import get_users_db
 from flask_pymongo import pymongo
 from bson.objectid import ObjectId
 
+from bson import ObjectId
 
 bp = Blueprint('sound', __name__)
 
@@ -70,18 +71,19 @@ def update(sound_id):
         if error is not None:
             flash(error)
         else:
-            sound_collection.update_one({'_id': sound_id}, {'$set': {'title': title}})
+            sound_collection.update_one({'_id': ObjectId(sound_id)}, {'$set': {'title': title}})
+            updated_sound = sound_collection.find_one({'_id': ObjectId(sound_id)})
             return redirect(url_for('sound.index'))
-    
+
     return render_template('sound/update.html', sound=sound)
 
 @bp.route('/<string:sound_id>/delete', methods=('POST',))
 @login_required
 def delete(sound_id):
-    sound_collection = get_sound_db().sound_collection
+    sound_collection = get_sound_db()
     sound = get_sound(sound_id, check_author=True)
     if sound is None:
         abort(404, "Sound doesn't exist or you don't have permission to delete it.")
     
-    sound_collection.delete_one({'_id': sound_id})
+    sound_collection.delete_one({'_id': ObjectId(sound_id)})
     return redirect(url_for('sound.index'))
