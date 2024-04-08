@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Audios{% endblock %}</h1>
+  <div style="flex: 1; text-align: center;">
+    <h2>{% block title %}Audios{% endblock %}</h2>
+  </div>
   {% if g.user %}
     <a class="action" href="{{ url_for('sound.create') }}">New</a>
   {% endif %}
@@ -12,7 +14,7 @@
     <article class="post">
       <header>
         <div>
-          <h1>{{ sound['title'] }}</h1>
+          <h2>{{ sound['title'] }}</h2>
           <div class="about">by {{ sound['email'] }}</div>
         </div>
         {% if g.user['email'] == sound['email'] %}

@@ -31,6 +31,10 @@ def register():
             error = 'Por favor confirme la contraseña.'
         elif password != confirm_password:
             error = 'Las contraseñas no coinciden.'
+        else:
+            user = get_users_db().find_one({'email': email})
+            if user is not None:
+                error = 'Este correo electrónico ya está registrado.'
 
         if error is None:
             try:
