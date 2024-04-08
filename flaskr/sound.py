@@ -7,6 +7,8 @@ from flaskr.auth import login_required
 from flaskr.db import get_sound_db
 from flaskr.db import get_users_db
 from flask_pymongo import pymongo
+from bson.objectid import ObjectId
+
 
 bp = Blueprint('sound', __name__)
 
@@ -29,23 +31,25 @@ def create():
         if error is not None:
             flash(error)
         else:
-            get_sound_db.insert_one({
+            sound_db = get_sound_db()  # Llama a la función para obtener la colección de MongoDB
+            sound_db.insert_one({
+                'email': g.user['email'],
                 'title': title,
-                'audiolink': audiolink,
-                'author_id': g.user['id']
+                'audiolink': audiolink
+
             })
             return redirect(url_for('sound.index'))
     return render_template('sound/create.html')
 
 
 def get_sound(sound_id, check_author=True):
-    sound_collection = get_sound_db().sound_collection
-    sound = sound_collection.find_one({'_id': sound_id, 'author_id': g.user['id']})
+    sound_collection = get_sound_db()
+    sound = sound_collection.find_one({'_id': ObjectId(sound_id)})
 
     if sound is None:
         abort(404, f"Sound id {sound_id} doesn't exist.")
 
-    if check_author and sound['author_id'] != g.user['id']:
+    if check_author and sound['email'] != g.user['email']:
         abort(403)
 
     return sound
@@ -53,7 +57,7 @@ def get_sound(sound_id, check_author=True):
 @bp.route('/update/<string:sound_id>', methods=('GET', 'POST'))
 @login_required
 def update(sound_id):
-    sound_collection = get_sound_db().sound_collection
+    sound_collection = get_sound_db()
     sound = get_sound(sound_id, check_author=True)
     if sound is None:
         abort(404, "Sound doesn't exist or you don't have permission to update it.")

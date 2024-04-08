@@ -1,26 +1,25 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Posts{% endblock %}</h1>
+  <h1>{% block title %}Audios{% endblock %}</h1>
   {% if g.user %}
     <a class="action" href="{{ url_for('sound.create') }}">New</a>
   {% endif %}
 {% endblock %}
 
 {% block content %}
-  {% for s in sound %}
+  {% for sound in sound %}
     <article class="post">
       <header>
         <div>
-          <h1>{{ s['title'] }}</h1>
-          <div class="about">by {{ s['email'] }} on {{ s['created'].strftime('%Y-%m-%d') }}</div>
+          <h1>{{ sound['title'] }}</h1>
+          <div class="about">by {{ sound['email'] }}</div>
         </div>
-        {% if g.user['id'] == s['author_id'] %}
-          <a class="action" href="{{ url_for('sound.update', id=s['id']) }}">Edit</a>
+        {% if g.user['email'] == sound['email'] %}
+        <a class="action" href="{{ url_for('sound.update', sound_id=sound['_id']) }}">Edit</a>
         {% endif %}
-        <h1>Hello world</h1>
       </header>
-      <p class="body">{{ s['body'] }}</p>
+      <p class="body">{{ sound['audiolink'] }}</p>
     </article>
     {% if not loop.last %}
       <hr>
