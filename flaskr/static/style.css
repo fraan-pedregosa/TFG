@@ -11,9 +11,9 @@ html {
 
 body {
     margin: 0 auto;
-    background: white;
-    height: 100;
+    min-height: 50vh;
     text-align: center;
+    background-color: rgb(255, 255, 255,0.5);
 }
 
 h1 {
@@ -39,44 +39,71 @@ hr {
     border-top: 1px solid lightgray;
 }
 
-nav {
-    background: lightgray;
+.premenu {
+    background: rgb(175, 175, 175);
     display:flex;
     align-items: center;
     padding: 0 0.5rem;
     justify-content: space-around;
 }
 
-nav h1 {
+.premenu h1 {
     flex: auto;
     margin: 0;
 }
 
-nav h1 a {
+.premenu h1 a {
     text-decoration: none;
     padding: 0.25rem 0.5rem;
 }
 
-nav ul {
+.premenu ul {
     display: flex;
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
-nav ul li a,
-nav ul li span,
+.premenu ul li a,
+.premenu ul li span,
 header .action {
     display: block;
     padding: 0.5rem;
 }
+.menu{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    background:rgb(255, 255, 255);
+    height: 100%;
+    padding-top: 0.75%;
+    padding-bottom: 0.75%;
+
+}
+
+.menu a {
+    color: #377ba8; /* Cambia el color del texto del enlace */
+    text-decoration: none; /* Elimina la subrayado del enlace */
+    padding: 0.5em; /* Añade un poco de espacio alrededor del enlace */
+    transition: color 0.3s ease; /* Añade una transición suave al cambiar el color */
+}
+
+.menu a:hover {
+    color: #005580; /* Cambia el color del enlace cuando se pasa el ratón por encima */
+}
 
 .content {
     padding: 0 1rem 1rem;
+    margin-top: 1%;
+    width: 40%;
+    margin: 0 auto 1em;
+    margin-top: 1%;
+    border-radius: 10%;
+
 }
 
 .content>header {
-    border-bottom: 1px solid lightgray;
     display: flex;
     align-items: flex-end;
 }
@@ -91,6 +118,11 @@ header .action {
     padding: 1em;
     background: #cae6f6;
     border: 1px solid #377ba8;
+}
+.post {
+    background-color: #ffffff; /* Cambia esto al color que prefieras */
+    margin-bottom: 2em; /* Ajusta este valor a lo que necesites */
+    padding: 1em; /* Añade un poco de espacio alrededor del contenido dentro de cada article */
 }
 
 .post>header {
@@ -130,6 +162,8 @@ header .action {
     margin: 1em 0;
     display: flex;
     flex-direction: column;
+    margin-top: 2%;
+
 }
 
 .content label {
@@ -139,7 +173,9 @@ header .action {
 
 .content input,
 .content textarea {
-    margin-bottom: 1em;
+    margin: 0 auto 1em;
+    width: 25%;
+    display: block;
 }
 
 .content textarea {
@@ -154,4 +190,7 @@ input.danger {
 input[type=submit] {
     align-self: start;
     min-width: 10em;
+}
+.button{
+    margin-top: 1% !important;
 }

@@ -1,30 +1,26 @@
 {% extends 'base.html' %}
 
-{% block header %}
-  <div style="flex: 1; text-align: center;">
-    <h2>{% block title %}Audios{% endblock %}</h2>
-  </div>
-  {% if g.user %}
-    <a class="action" href="{{ url_for('sound.create') }}">New</a>
-  {% endif %}
-{% endblock %}
+{% block title %}Audios{% endblock %}
+{% block header %}{% endblock %}
 
 {% block content %}
-  {% for sound in sound %}
-    <article class="post">
-      <header>
-        <div>
-          <h2>{{ sound['title'] }}</h2>
-          <div class="about">by {{ sound['email'] }}</div>
-        </div>
-        {% if g.user['email'] == sound['email'] %}
-        <a class="action" href="{{ url_for('sound.update', sound_id=sound['_id']) }}">Edit</a>
-        {% endif %}
-      </header>
-      <p class="body">{{ sound['audiolink'] }}</p>
-    </article>
-    {% if not loop.last %}
-      <hr>
+{% if g.user %}
+<a class="action" href="{{ url_for('sound.create') }}">New</a>
+{% endif %}
+{% for sound in sound %}
+<article class="post">
+  <header>
+    <div>
+      <h2 class="tituloAudio">{{ sound['title'] }}</h2>
+      <div class="about">by {{ sound['email'] }}</div>
+    </div>
+    {% if g.user['email'] == sound['email'] %}
+    <a class="action" href="{{ url_for('sound.update', sound_id=sound['_id']) }}">Edit</a>
     {% endif %}
-  {% endfor %}
+  </header>
+  <p class="body">{{ sound['audiolink'] }}</p>
+</article>
+{% if not loop.last %}
+{% endif %}
+{% endfor %}
 {% endblock %}

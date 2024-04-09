@@ -1,24 +1,34 @@
 <!doctype html>
 <title>{% block title %}{% endblock %} - SOUND-AI</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<nav>
+<nav class="premenu">
   <h1>SOUND-AI</h1>
   <ul>
     {% if g.user %}
-      <li><span>{{ g.user['name'] }}</span>
-      <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
-    {% else %}
-      <li><a href="{{ url_for('auth.register') }}">Register</a>
-      <li><a href="{{ url_for('auth.login') }}">Log In</a>
-    {% endif %}
+    <li><span>{{ g.user['name'] }}</span>
+    <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
+      {% else %}
+    <li><a href="{{ url_for('auth.register') }}">Register</a>
+    <li><a href="{{ url_for('auth.login') }}">Log In</a>
+      {% endif %}
   </ul>
 </nav>
+
+<header>
+  <nav class="menu">
+
+    <a href="#">Audios Públicos</a>
+    <a href="#">Mis Audios</a>
+    <a href="#">Audio+Vídeo</a>
+    <a href="#">Audio+Audio</a>
+
+  </nav>
+  {% block header %}{% endblock %}
+</header>
 <section class="content">
-  <header>
-    {% block header %}{% endblock %}
-  </header>
   {% for message in get_flashed_messages() %}
-    <div class="flash">{{ message }}</div>
+  <div class="flash">{{ message }}</div>
   {% endfor %}
+
   {% block content %}{% endblock %}
 </section>
