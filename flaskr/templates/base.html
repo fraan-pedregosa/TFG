@@ -32,3 +32,12 @@
 
   {% block content %}{% endblock %}
 </section>
+<footer>
+    <ul>
+      <li><a href="{{ url_for('auth.logout') }}">Cómo se hizo</a>
+      <li><a href="{{ url_for('auth.register') }}">Información</a>
+      <li><a href="{{ url_for('auth.login') }}">Contacto</a>
+        <li><a href="{{ url_for('auth.login') }}">Términos y políticas</a>
+    </ul>
+
+</footer>
