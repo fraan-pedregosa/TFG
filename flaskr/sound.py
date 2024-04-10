@@ -93,3 +93,38 @@ def delete(sound_id):
     sound_collection.delete_one({'_id': ObjectId(sound_id)})
     return redirect(url_for('sound.index'))
 
+@app.route('/generateaudio', methods=['POST'])
+def generate_audio():
+    try:
+        data = request.get_json()
+        frequency = data.get('frequency')
+        duration = data.get('duration')
+                
+        # Generate audio
+        sample_rate = 44100
+        t = np.linspace(0, duration, int(sample_rate * duration), endpoint=False)
+        audio_data = np.sin(2 * np.pi * frequency * t)
+                
+        # Initialize PyAudio
+        p = pyaudio.PyAudio()
+                
+        # Open stream
+        stream = p.open(format=pyaudio.paFloat32,
+                                channels=1,
+                                rate=sample_rate,
+                                output=True)                
+        # Play audio
+        stream.write(audio_data.astype(np.float32).tobytes())
+                
+        # Close stream
+        stream.stop_stream()
+        stream.close()
+                
+        # Terminate PyAudio
+        p.terminate()
+                
+        return jsonify({"message": "Audio generated successfully"}), 200
+                
+    except Exception as e:
+        print(f"Error: {str(e)}")
+        return jsonify({"error": str(e)}), 500
