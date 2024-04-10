@@ -1,19 +1,18 @@
 html {
     font-family: sans-serif;
     background: #eee;
-    padding: 1rem;
+    padding: 2rem;
     background-image: url("./images/parti.jpg");
+    background-attachment: fixed; /*para que la imagen del fondo se adapte a la altura*/
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    height: 100%;
 }
 
 body {
     margin: 0 auto;
     min-height: 50vh;
     text-align: center;
-    background-color: rgb(255, 255, 255,0.5);
 }
 
 h1 {
@@ -219,6 +218,21 @@ input[type=submit] {
 }
 .button{
     margin-top: 1% !important;
+}
+.login{
+    background-color: white;
+    /* height: 25vh; */
+    width: 60%; 
+    justify-content: center;
+    margin: 0 auto;
+}
+.register{
+    background-color: white;
+    width: 60%; 
+    margin: 0 auto;
+
+
+    /* height: 40vh; */
 }
 
 .audio.green-audio-player {

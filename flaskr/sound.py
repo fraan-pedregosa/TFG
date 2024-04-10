@@ -19,6 +19,11 @@ def index():
     sound = sound_collection.find().sort('_id', pymongo.DESCENDING)
     return render_template('sound/index.html', sound=sound)
 
+@bp.route('/misaudios')
+def misaudios():
+    sound_collection = get_sound_db()
+    sound = sound_collection.find().sort('_id', pymongo.DESCENDING)
+    return render_template('sound/misaudios.html', sound=sound)
 
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required
@@ -87,3 +92,4 @@ def delete(sound_id):
     
     sound_collection.delete_one({'_id': ObjectId(sound_id)})
     return redirect(url_for('sound.index'))
+

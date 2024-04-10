@@ -4,6 +4,7 @@
 {% endblock %}
 
 {% block content %}
+<section class="register">
 <h2>{% block title %}Register{% endblock %}</h2>
 
 <form method="post">
@@ -17,4 +18,5 @@
     <input type="password" name="confirm_password" id="confirm_password" required>
     <input class="button" type="submit" value="Register">
 </form>
+</section>
 {% endblock %}
