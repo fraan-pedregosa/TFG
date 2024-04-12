@@ -39,6 +39,7 @@ h2 {
     color: #377ba8;
     margin: 1rem 0;
     text-align: center;
+    
 }
 
 
@@ -173,7 +174,8 @@ header .action {
 
 .menu a:hover,
 .menu a.active {
-    background-color: #377ba8;;
+    background-image: linear-gradient(to right, #377ba8, rgb(62, 0, 119));
+    background-color: #377ba8;
     color: white;
 }
 
@@ -289,20 +291,38 @@ input[type=submit] {
 
 .button {
     margin-top: 1% !important;
+    background-image: linear-gradient(to right, #377ba8, #4e54c8);
+    color: white;
+    font-size: 100%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 30px;
 }
+
 
 .login {
     background-color: white;
-    /* height: 25vh; */
     width: 60%;
     justify-content: center;
     margin: 0 auto;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+    font-size: 120%;
+
 }
 
 .register {
     background-color: white;
     width: 60%;
     margin: 0 auto;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+    font-size: 120%;
 
 }
 

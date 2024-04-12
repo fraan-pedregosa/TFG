@@ -12,8 +12,8 @@
         <li><span>{{ g.user['name'] }}</span>
         <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
           {% else %}
-        <li><a href="{{ url_for('auth.register') }}">Register</a>
-        <li><a href="{{ url_for('auth.login') }}">Log In</a>
+        <li><a class="enlacesSesion" href="{{ url_for('auth.register') }}">Register</a>
+        <li><a class="enlacesSesion" href="{{ url_for('auth.login') }}">Log In</a>
           {% endif %}
       </ul>
     </nav>
@@ -85,5 +85,17 @@
     });
   });
 
-  
-  </script>
+  document.querySelector('.enlacesSesion').forEach(link => {
+    link.addEventListener('click', function () {
+      // Elimina la clase 'active' de todos los enlaces
+      document.querySelectorAll('.menu-link').forEach(link => {
+        link.classList.remove('active');
+      });
+      document.querySelectorAll('.footer-link').forEach(link => {
+        link.classList.remove('active');
+      });
+    });
+  });
+
+
+</script>
