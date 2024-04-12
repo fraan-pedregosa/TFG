@@ -97,8 +97,10 @@ def delete(sound_id):
 def generate_audio():
     try:
         data = request.get_json()
-        frequency = data.get('frequency')
-        duration = data.get('duration')
+        # frequency = data.get('frequency')
+        # duration = data.get('duration')
+        frequency = 440
+        duration = 3
                 
         # Generate audio
         sample_rate = 44100
