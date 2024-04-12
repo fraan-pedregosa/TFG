@@ -3,10 +3,20 @@ html {
     background: #eee;
     padding: 2rem;
     background-image: url("./images/parti.jpg");
-    background-attachment: fixed; /*para que la imagen del fondo se adapte a la altura*/
+    background-attachment: fixed;
+    /*para que la imagen del fondo se adapte a la altura*/
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+}
+.bordesheader{
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    overflow: hidden; /* Aplica los bordes redondeados a los elementos internos */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.9);
+
 }
 
 body {
@@ -17,11 +27,14 @@ body {
 
 h1 {
     font-family: serif;
-    color:white;
+    color: white;
     margin: 1rem 0;
     text-align: left;
+    font-size: 200%;
+    font-style: italic;
 }
-h2{
+
+h2 {
     font-family: serif;
     color: #377ba8;
     margin: 1rem 0;
@@ -38,40 +51,53 @@ hr {
     border-top: 1px solid lightgray;
 }
 
-
-footer{
+footer {
     background-image: linear-gradient(to right, #377ba8, #4e54c8);
-    display:flex;
+    display: flex;
     align-items: center;
     justify-content: space-around;
     height: 100%;
     width: 100%;
     padding-top: 1.5%;
     padding-bottom: 1.5%;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.9);
+    font-size: 120%;
 
 }
+
 footer ul {
     display: flex;
     list-style: none;
     justify-content: space-between;
     margin: 0;
     padding: 0;
-    width: 100%; 
+    width: 100%;
 }
 
 footer ul li {
-    flex: 1; /* Esto hará que cada elemento de la lista ocupe un espacio igual dentro del footer */
+    flex: 1;
+    /* Esto hará que cada elemento de la lista ocupe un espacio igual dentro del footer */
     height: 100%;
 }
+
 footer a {
     text-decoration: none;
     align-items: center;
     justify-content: center;
-    padding: 10px; /* Ajusta el padding según tus necesidades */
+    padding: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 20px;
 }
 
 
-footer a:hover, footer a.active {
+footer a:hover,
+footer a.active {
     background-color: white;
     color: #377ba8;
 }
@@ -86,10 +112,11 @@ footer ul li:hover a, footer ul li.active a {
 
 .premenu {
     background-image: linear-gradient(to right, #377ba8, #4e54c8);
-    display:flex;
+    display: flex;
     align-items: center;
     padding: 0 0.5rem;
     justify-content: space-around;
+
 }
 
 
@@ -116,28 +143,40 @@ header .action {
     display: block;
     padding: 0.5rem;
 }
-.menu{
+
+.menu {
     display: flex;
     align-items: center;
     justify-content: space-around;
     width: 100%;
-    background:rgb(255, 255, 255);
+    background: rgb(255, 255, 255);
     height: 100%;
     padding-top: 0.75%;
     padding-bottom: 0.75%;
+    font-size: 120%;
 
 }
 
 .menu a {
-    color: #377ba8; /* Cambia el color del texto del enlace */
-    text-decoration: none; /* Elimina la subrayado del enlace */
-    padding: 0.5em; /* Añade un poco de espacio alrededor del enlace */
+    color: #377ba8;
+    /* Cambia el color del texto del enlace */
+    text-decoration: none;
+    /* Elimina la subrayado del enlace */
+    padding: 0.5em;
+    /* Añade un poco de espacio alrededor del enlace */
+    border-top-left-radius: 10px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 20px;
 }
 
 
-.menu a:hover {
-    color: #005580; /* Cambia el color del enlace cuando se pasa el ratón por encima */
+.menu a:hover,
+.menu a.active {
+    background-color: #377ba8;;
+    color: white;
 }
+
 
 .content {
     padding: 0 1rem 1rem;
@@ -165,10 +204,19 @@ header .action {
     background: #cae6f6;
     border: 1px solid #377ba8;
 }
+
 .post {
-    background-color: #ffffff; /* Cambia esto al color que prefieras */
-    margin-bottom: 2em; /* Ajusta este valor a lo que necesites */
-    padding: 1em; /* Añade un poco de espacio alrededor del contenido dentro de cada article */
+    background-color: #ffffff;
+    /* Cambia esto al color que prefieras */
+    margin-bottom: 2em;
+    /* Ajusta este valor a lo que necesites */
+    padding: 1em;
+    /* Añade un poco de espacio alrededor del contenido dentro de cada article */
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.9);
 }
 
 .post>header {
@@ -185,6 +233,7 @@ header .action {
     font-size: 1.5em;
     margin-bottom: 0;
 }
+
 .post>header h2 {
     font-size: 1.5em;
     margin-bottom: 0;
@@ -237,19 +286,22 @@ input[type=submit] {
     align-self: start;
     min-width: 10em;
 }
-.button{
+
+.button {
     margin-top: 1% !important;
 }
-.login{
+
+.login {
     background-color: white;
     /* height: 25vh; */
-    width: 60%; 
+    width: 60%;
     justify-content: center;
     margin: 0 auto;
 }
-.register{
+
+.register {
     background-color: white;
-    width: 60%; 
+    width: 60%;
     margin: 0 auto;
 
 }
@@ -270,27 +322,27 @@ input[type=submit] {
     background-color: #fff;
     margin: 2em 0;
     margin-left: 18%;
-  }
-  
-  .audio.green-audio-player .play-pause-btn {
+}
+
+.audio.green-audio-player .play-pause-btn {
     cursor: pointer;
-  }
-  
-  .audio.green-audio-player .slider {
+}
+
+.audio.green-audio-player .slider {
     flex-grow: 1;
     background-color: #d8d8d8;
     cursor: pointer;
     position: relative;
-  }
-  
-  .audio.green-audio-player .slider .progress {
+}
+
+.audio.green-audio-player .slider .progress {
     background-color: #44bfa3;
     border-radius: inherit;
     position: absolute;
     pointer-events: none;
-  }
-  
-  .audio.green-audio-player .slider .progress .pin {
+}
+
+.audio.green-audio-player .slider .progress .pin {
     height: 16px;
     width: 16px;
     border-radius: 8px;
@@ -298,9 +350,9 @@ input[type=submit] {
     position: absolute;
     pointer-events: all;
     box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.32);
-  }
-  
-  .audio.green-audio-player .controls {
+}
+
+.audio.green-audio-player .controls {
     font-family: "Roboto", sans-serif;
     font-size: 16px;
     line-height: 18px;
@@ -311,42 +363,42 @@ input[type=submit] {
     align-items: center;
     margin-left: 24px;
     margin-right: 24px;
-  }
-  
-  .audio.green-audio-player .controls .slider {
+}
+
+.audio.green-audio-player .controls .slider {
     margin-left: 16px;
     margin-right: 16px;
     border-radius: 2px;
     height: 4px;
-  }
-  
-  .audio.green-audio-player .controls .slider .progress {
+}
+
+.audio.green-audio-player .controls .slider .progress {
     width: 0;
     height: 100%;
-  }
-  
-  .audio.green-audio-player .controls .slider .pin {
+}
+
+.audio.green-audio-player .controls .slider .pin {
     right: -8px;
     top: -6px;
-  }
-  
-  .audio.green-audio-player .controls span {
+}
+
+.audio.green-audio-player .controls span {
     cursor: default;
-  }
-  
-  .audio.green-audio-player .volume {
+}
+
+.audio.green-audio-player .volume {
     position: relative;
-  }
-  
-  .audio.green-audio-player .volume .volume-btn {
+}
+
+.audio.green-audio-player .volume .volume-btn {
     cursor: pointer;
-  }
-  
-  .audio.green-audio-player .volume .volume-btn .open path {
+}
+
+.audio.green-audio-player .volume .volume-btn .open path {
     fill: #44bfa3;
-  }
-  
-  .audio.green-audio-player .volume .volume-controls {
+}
+
+.audio.green-audio-player .volume .volume-controls {
     width: 30px;
     height: 135px;
     background-color: rgba(0, 0, 0, 0.62);
@@ -357,27 +409,26 @@ input[type=submit] {
     flex-direction: column;
     align-items: center;
     display: flex;
-  }
-  
-  .audio.green-audio-player .volume .volume-controls.hidden {
+}
+
+.audio.green-audio-player .volume .volume-controls.hidden {
     display: none;
-  }
-  
-  .audio.green-audio-player .volume .volume-controls .slider {
+}
+
+.audio.green-audio-player .volume .volume-controls .slider {
     margin-top: 12px;
     margin-bottom: 12px;
     width: 6px;
     border-radius: 3px;
-  }
-  
-  .audio.green-audio-player .volume .volume-controls .slider .progress {
+}
+
+.audio.green-audio-player .volume .volume-controls .slider .progress {
     bottom: 0;
     height: 100%;
     width: 6px;
-  }
-  
-  .audio.green-audio-player .volume .volume-controls .slider .progress .pin {
+}
+
+.audio.green-audio-player .volume .volume-controls .slider .progress .pin {
     left: -5px;
     top: -8px;
-  }
-  
+}

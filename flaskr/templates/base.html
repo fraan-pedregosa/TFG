@@ -1,28 +1,31 @@
 <!doctype html>
 <title>{% block title %}{% endblock %} - SOUND-AI</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<nav class="premenu">
-  <h1>SOUND-AI</h1>
-  <ul>
-    {% if g.user %}
-    <li><span>{{ g.user['name'] }}</span>
-    <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
-      {% else %}
-    <li><a href="{{ url_for('auth.register') }}">Register</a>
-    <li><a href="{{ url_for('auth.login') }}">Log In</a>
-      {% endif %}
-  </ul>
-</nav>
+
 
 <header>
-  <nav class="menu">
+  <section class="bordesheader">
+    <nav class="premenu">
+      <h1>SOUND-AI</h1>
+      <ul>
+        {% if g.user %}
+        <li><span>{{ g.user['name'] }}</span>
+        <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
+          {% else %}
+        <li><a href="{{ url_for('auth.register') }}">Register</a>
+        <li><a href="{{ url_for('auth.login') }}">Log In</a>
+          {% endif %}
+      </ul>
+    </nav>
+    <nav class="menu">
 
-    <a href="{{url_for('sound.index')}}">Audios Públicos</a>
-    <a href="{{url_for('sound.misaudios')}}">Mis Audios</a>
-    <a href="#">Audio+Vídeo</a>
-    <a href="#">Audio+Audio</a>
+      <a class="menu-link" href="{{url_for('sound.index')}}">Audios Públicos</a>
+      <a class="menu-link" href="{{url_for('sound.misaudios')}}">Mis Audios</a>
+      <a class="menu-link" href="#">Audio+Vídeo</a>
+      <a class="menu-link" href="#">Audio+Audio</a>
 
-  </nav>
+    </nav>
+  </section>
   {% block header %}{% endblock %}
 </header>
 <section class="content">
@@ -34,31 +37,53 @@
 </section>
 <footer>
   <ul>
-    <li><a class="footer-link" href="{{ url_for('auth.logout') }}">Cómo se hizo</a>
-    <li><a class="footer-link" href="{{ url_for('auth.register') }}">Información</a>
-    <li><a class="footer-link" href="{{ url_for('auth.login') }}">Contacto</a>
-    <li><a class="footer-link" href="{{ url_for('sound.create') }}">Términos y políticas</a>
+    <li><a class="footer-link" href="#">Cómo se hizo</a>
+    <li><a class="footer-link" href="#">Información</a>
+    <li><a class="footer-link" href="#">Contacto</a>
+    <li><a class="footer-link" href="#">Términos y políticas</a>
   </ul>
 </footer>
 
 <script>// Cuando la página se carga, verifica si hay un enlace activo almacenado en el almacenamiento local
-  window.onload = function() {
-      var activeLink = localStorage.getItem('activeLink');
-      if (activeLink) {
-          document.querySelector(activeLink).classList.add('active');
-      }
+  window.onload = function () {
+    var activeLink = localStorage.getItem('activeLink');
+    if (activeLink) {
+      document.querySelector(activeLink).classList.add('active');
+    }
   }
-  
+
   // Agrega un evento de clic a cada enlace
   document.querySelectorAll('.footer-link').forEach(link => {
-      link.addEventListener('click', function() {
-          // Elimina la clase 'active' de todos los enlaces
-          document.querySelectorAll('.footer-link').forEach(link => {
-              link.classList.remove('active');
-          });
-          // Agrega la clase 'active' al enlace que se acaba de hacer clic
-          this.classList.add('active');
-          // Almacena el enlace activo en el almacenamiento local
-          localStorage.setItem('activeLink', '.footer-link[href="' + this.getAttribute('href') + '"]');
+    link.addEventListener('click', function () {
+      // Elimina la clase 'active' de todos los enlaces
+      document.querySelectorAll('.footer-link').forEach(link => {
+        link.classList.remove('active');
       });
-  });</script>
+      document.querySelectorAll('.menu-link').forEach(link => {
+        link.classList.remove('active');
+      });
+      // Agrega la clase 'active' al enlace que se acaba de hacer clic
+      this.classList.add('active');
+      // Almacena el enlace activo en el almacenamiento local
+      localStorage.setItem('activeLink', '.footer-link[href="' + this.getAttribute('href') + '"]');
+    });
+  });
+
+  document.querySelectorAll('.menu-link').forEach(link => {
+    link.addEventListener('click', function () {
+      // Elimina la clase 'active' de todos los enlaces
+      document.querySelectorAll('.menu-link').forEach(link => {
+        link.classList.remove('active');
+      });
+      document.querySelectorAll('.footer-link').forEach(link => {
+        link.classList.remove('active');
+      });
+      // Agrega la clase 'active' al enlace que se acaba de hacer clic
+      this.classList.add('active');
+      // Almacena el enlace activo en el almacenamiento local
+      localStorage.setItem('activeLink', '.menu-link[href="' + this.getAttribute('href') + '"]');
+    });
+  });
+
+  
+  </script>
