@@ -145,6 +145,17 @@ header .action {
     padding: 0.5rem;
 }
 
+.action{
+    background-image: linear-gradient(to right, #377ba8, #4e54c8);
+    color: white;
+    font-size: 140%;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+    text-decoration: none;
+}
+
 .menu {
     display: flex;
     align-items: center;
