@@ -64,19 +64,25 @@ footer ul li {
     height: 100%;
 }
 footer a {
-    display: flex;
+    text-decoration: none;
     align-items: center;
     justify-content: center;
-    height: 100%;
+    padding: 10px; /* Ajusta el padding según tus necesidades */
 }
 
-footer ul li:hover, footer ul li.active {
+
+footer a:hover, footer a.active {
+    background-color: white;
+    color: #377ba8;
+}
+
+/* footer ul li:hover, footer ul li.active {
     background-color: white;
 }
 
 footer ul li:hover a, footer ul li.active a {
-    color: #377ba8;
-}
+    color: #377ba8; 
+} */
 
 .premenu {
     background-image: linear-gradient(to right, #377ba8, #4e54c8);
