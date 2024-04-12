@@ -33,11 +33,32 @@
   {% block content %}{% endblock %}
 </section>
 <footer>
-    <ul>
-      <li><a href="{{ url_for('auth.logout') }}">Cómo se hizo</a>
-      <li><a href="{{ url_for('auth.register') }}">Información</a>
-      <li><a href="{{ url_for('auth.login') }}">Contacto</a>
-        <li><a href="{{ url_for('auth.login') }}">Términos y políticas</a>
-    </ul>
-
+  <ul>
+    <li><a class="footer-link" href="{{ url_for('auth.logout') }}">Cómo se hizo</a>
+    <li><a class="footer-link" href="{{ url_for('auth.register') }}">Información</a>
+    <li><a class="footer-link" href="{{ url_for('auth.login') }}">Contacto</a>
+    <li><a class="footer-link" href="{{ url_for('sound.create') }}">Términos y políticas</a>
+  </ul>
 </footer>
+
+<script>// Cuando la página se carga, verifica si hay un enlace activo almacenado en el almacenamiento local
+  window.onload = function() {
+      var activeLink = localStorage.getItem('activeLink');
+      if (activeLink) {
+          document.querySelector(activeLink).parentElement.classList.add('active');
+      }
+  }
+  
+  // Agrega un evento de clic a cada enlace
+  document.querySelectorAll('.footer-link').forEach(link => {
+      link.addEventListener('click', function() {
+          // Elimina la clase 'active' de todos los enlaces
+          document.querySelectorAll('.footer-link').forEach(link => {
+              link.parentElement.classList.remove('active');
+          });
+          // Agrega la clase 'active' al enlace que se acaba de hacer clic
+          this.parentElement.classList.add('active');
+          // Almacena el enlace activo en el almacenamiento local
+          localStorage.setItem('activeLink', '.footer-link[href="' + this.getAttribute('href') + '"]');
+      });
+  });</script>

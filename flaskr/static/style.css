@@ -17,7 +17,7 @@ body {
 
 h1 {
     font-family: serif;
-    color: #377ba8;
+    color:white;
     margin: 1rem 0;
     text-align: left;
 }
@@ -30,7 +30,7 @@ h2{
 
 
 a {
-    color: #377ba8;
+    color: white;
 }
 
 hr {
@@ -40,7 +40,7 @@ hr {
 
 
 footer{
-    background: rgb(175, 175, 175);
+    background-image: linear-gradient(to right, #377ba8, #4e54c8);
     display:flex;
     align-items: center;
     justify-content: space-around;
@@ -61,10 +61,25 @@ footer ul {
 
 footer ul li {
     flex: 1; /* Esto hará que cada elemento de la lista ocupe un espacio igual dentro del footer */
+    height: 100%;
+}
+footer a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+footer ul li:hover, footer ul li.active {
+    background-color: white;
+}
+
+footer ul li:hover a, footer ul li.active a {
+    color: #377ba8;
 }
 
 .premenu {
-    background: rgb(175, 175, 175);
+    background-image: linear-gradient(to right, #377ba8, #4e54c8);
     display:flex;
     align-items: center;
     padding: 0 0.5rem;
@@ -111,8 +126,8 @@ header .action {
     color: #377ba8; /* Cambia el color del texto del enlace */
     text-decoration: none; /* Elimina la subrayado del enlace */
     padding: 0.5em; /* Añade un poco de espacio alrededor del enlace */
-    transition: color 0.3s ease; /* Añade una transición suave al cambiar el color */
 }
+
 
 .menu a:hover {
     color: #005580; /* Cambia el color del enlace cuando se pasa el ratón por encima */
@@ -273,7 +288,7 @@ input[type=submit] {
     height: 16px;
     width: 16px;
     border-radius: 8px;
-    background-color: #00ecd9;
+    background-color: #377ba8;
     position: absolute;
     pointer-events: all;
     box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.32);

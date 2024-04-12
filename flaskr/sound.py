@@ -93,7 +93,7 @@ def delete(sound_id):
     sound_collection.delete_one({'_id': ObjectId(sound_id)})
     return redirect(url_for('sound.index'))
 
-@app.route('/generateaudio', methods=['POST'])
+@bp.route('/generateaudio', methods=['POST'])
 def generate_audio():
     try:
         data = request.get_json()
