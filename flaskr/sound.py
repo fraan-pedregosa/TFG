@@ -96,7 +96,7 @@ def delete(sound_id):
 @bp.route('/generateaudio', methods=['POST'])
 def generate_audio():
     try:
-        data = request.get_json()
+        # data = request.get_json()
         # frequency = data.get('frequency')
         # duration = data.get('duration')
         frequency = 440
