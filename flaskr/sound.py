@@ -96,37 +96,26 @@ def delete(sound_id):
 @bp.route('/generateaudio', methods=['POST'])
 def generate_audio():
     try:
-        # data = request.get_json()
-        # frequency = data.get('frequency')
-        # duration = data.get('duration')
-        frequency = 440
-        duration = 3
-                
-        # Generate audio
-        sample_rate = 44100
-        t = np.linspace(0, duration, int(sample_rate * duration), endpoint=False)
-        audio_data = np.sin(2 * np.pi * frequency * t)
-                
-        # Initialize PyAudio
-        p = pyaudio.PyAudio()
-                
-        # Open stream
-        stream = p.open(format=pyaudio.paFloat32,
-                                channels=1,
-                                rate=sample_rate,
-                                output=True)                
-        # Play audio
-        stream.write(audio_data.astype(np.float32).tobytes())
-                
-        # Close stream
-        stream.stop_stream()
-        stream.close()
-                
-        # Terminate PyAudio
-        p.terminate()
-                
-        return jsonify({"message": "Audio generated successfully"}), 200
-                
+        prompt = request.form.get('prompt')
+        duracion = request.form.get('duracion')
+
+        # Enviar solicitud al módulo de IA
+        response = requests.post('http://localhost:7860/generateaudio', data={'prompt': prompt, 'duracion': duracion})
+
+        # Manejar la respuesta del módulo de IA
+        if response.status_code == 200:
+            # La respuesta es el audio en formato de bytes
+            audio_data = response.content
+
+            # Guardar el audio en el servidor
+            with open('audio.wav', 'wb') as audio_file:
+                audio_file.write(audio_data)
+
+            # Guardar la ruta del audio en la base de datos
+            # ...
+            return jsonify({"message": "Audio generado exitosamente"}), 200
+        else:
+            return jsonify({"error": "Error al generar el audio"}), 500
+
     except Exception as e:
-        print(f"Error: {str(e)}")
         return jsonify({"error": str(e)}), 500
