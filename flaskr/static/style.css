@@ -325,6 +325,31 @@ input[type=submit] {
 
 }
 
+.nueva{
+    background-color: white;
+    width: 100%;
+    justify-content: center;
+    margin: 0 auto;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+    font-size: 120%;
+}
+
+.edita{
+    background-color: white;
+    width: 100%;
+    justify-content: center;
+    margin: 0 auto;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+    font-size: 120%;
+
+}
+
 .register {
     background-color: white;
     width: 60%;

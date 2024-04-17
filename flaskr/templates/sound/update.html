@@ -1,18 +1,26 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h2>{% block title %}Edit "{{ sound.title }}"{% endblock %}</h2>
+
 {% endblock %}
 
 {% block content %}
+<section class="edita">
+  <h2>{% block title %}Edit "{{ sound.title }}"{% endblock %}</h2>
   <form method="post">
     <label for="title">Title</label>
-    <input name="title" id="title"
-      value="{{ request.form['title'] or sound.title }}" required>
+    <input name="title" id="title" value="{{ request.form['title'] or sound.title }}" required>
+    <label for="duration">Duración</label>
+    <input name="duration" id="duration" value="{{ request.form['duration'] or sound.duration}}" required>
+    <label for="prompt">¿De qué quieres que trate tu audio?</label>
+    <input name="prompt" id="prompt" value="{{ request.form['prompt'] or sound.prompt}}" required>
+
     <input class="button" type="submit" value="Save">
+
   </form>
   <hr>
   <form action="{{ url_for('sound.delete', sound_id=sound._id) }}" method="post">
-        <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+    <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
   </form>
+</section>
 {% endblock %}

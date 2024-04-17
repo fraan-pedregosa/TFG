@@ -29,11 +29,14 @@ def misaudios():
 @login_required
 def create():
     if request.method == 'POST':
-        title = request.form['title']
-        audiolink = request.form['audiolink']
+        title = request.form['title']        
+        duration = request.form['duration']
+        prompt = request.form['prompt']
+        
+        
         error = None
-        if not title or not audiolink:
-            error = 'Debes completar ambos campos'
+        if not title or not duration or not prompt:
+            error = 'Debes completar todos los campos'
         if error is not None:
             flash(error)
         else:
@@ -41,7 +44,8 @@ def create():
             sound_db.insert_one({
                 'email': g.user['email'],
                 'title': title,
-                'audiolink': audiolink
+                'duration': duration,
+                'prompt': prompt
 
             })
             return redirect(url_for('sound.index'))
@@ -70,13 +74,21 @@ def update(sound_id):
     
     if request.method == 'POST':
         title = request.form['title']
+        duration = request.form['duration']
+        prompt = request.form['prompt']
+        
         error = None
         if not title:
             error = 'Debes completar el campo de título'
+        if not duration:
+            error = 'Debes completar el campo de duración'
+        if not prompt:
+            error = 'Debes completar el campo de prompt'
+            
         if error is not None:
             flash(error)
         else:
-            sound_collection.update_one({'_id': ObjectId(sound_id)}, {'$set': {'title': title}})
+            sound_collection.update_one({'_id': ObjectId(sound_id)}, {'$set': {'title': title, 'duration': duration, 'prompt': prompt}})
             updated_sound = sound_collection.find_one({'_id': ObjectId(sound_id)})
             return redirect(url_for('sound.index'))
 
@@ -96,8 +108,8 @@ def delete(sound_id):
 @bp.route('/generateaudio', methods=['POST'])
 def generate_audio():
     try:
-        prompt = request.form.get('prompt')
-        duracion = request.form.get('duracion')
+        prompt = request.form('prompt')
+        duracion = request.form('duracion')
 
         # Enviar solicitud al módulo de IA
         response = requests.post('http://localhost:7860/generateaudio', data={'prompt': prompt, 'duracion': duracion})
