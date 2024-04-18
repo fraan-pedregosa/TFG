@@ -3,15 +3,24 @@ from flask import (
 )
 from werkzeug.exceptions import abort
 
+
+from flask import jsonify 
+from flask import current_app
+
+
 from flaskr.auth import login_required
 from flaskr.db import get_sound_db
 from flaskr.db import get_users_db
 from flask_pymongo import pymongo
 from bson.objectid import ObjectId
+from flask_cors import CORS
+import requests
+
 
 from bson import ObjectId
 
 bp = Blueprint('sound', __name__)
+
 
 @bp.route('/')
 def index():
@@ -108,26 +117,30 @@ def delete(sound_id):
 @bp.route('/generateaudio', methods=['POST'])
 def generate_audio():
     try:
-        prompt = request.form('prompt')
-        duracion = request.form('duracion')
+        title = request.form['title']
+        prompt = request.form['prompt']
+        duracion = request.form['duracion']
 
         # Enviar solicitud al módulo de IA
-        response = requests.post('http://localhost:7860/generateaudio', data={'prompt': prompt, 'duracion': duracion})
+        response = requests.post('http://localhost:7860/generateaudio', data={'title': title, 'prompt': prompt, 'duracion': duracion})
 
-        # Manejar la respuesta del módulo de IA
+        # Verificar el tipo de contenido de la respuesta
         if response.status_code == 200:
+
             # La respuesta es el audio en formato de bytes
             audio_data = response.content
 
             # Guardar el audio en el servidor
-            with open('audio.wav', 'wb') as audio_file:
-                audio_file.write(audio_data)
+            with open('.wav', 'wb') as audio_file:
+                audio_file.audiowrite(audio_data)
 
             # Guardar la ruta del audio en la base de datos
-            # ...
+            
             return jsonify({"message": "Audio generado exitosamente"}), 200
         else:
-            return jsonify({"error": "Error al generar el audio"}), 500
+            # La respuesta es un mensaje de error en formato JSON
+            error_message = response.json().get('error', 'Error desconocido')
+            return jsonify({"error": error_message}), 500
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
