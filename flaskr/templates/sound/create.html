@@ -7,7 +7,7 @@
 {% block content %}
 <section class="nueva">
   <h2 class="new">{% block title %}New Audio{% endblock %}</h2>
-  <form method="post" action="{{ url_for('sound.generate_audio') }}">
+  <form method="post" action="{{ url_for('sound.create') }}">
     <label for="title">Title</label>
     <input name="title" id="title" value="{{ request.form['title'] }}" required>
     <label for="duration">Duración</label>

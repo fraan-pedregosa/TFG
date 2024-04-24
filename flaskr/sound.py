@@ -127,14 +127,14 @@ def generate_audio():
         # Verificar el tipo de contenido de la respuesta
         if response.status_code == 200:
 
-            # La respuesta es el audio en formato de bytes
-            audio_data = response.content
+            # # La respuesta es el audio en formato de bytes
+            # audio_data = response.content
 
-            # Guardar el audio en el servidor
-            with open('.wav', 'wb') as audio_file:
-                audio_file.audiowrite(audio_data)
+            # # Guardar el audio en el servidor
+            # with open('.wav', 'wb') as audio_file:
+            #     audio_file.audiowrite(audio_data)
 
-            # Guardar la ruta del audio en la base de datos
+            # # Guardar la ruta del audio en la base de datos
             
             return jsonify({"message": "Audio generado exitosamente"}), 200
         else:
