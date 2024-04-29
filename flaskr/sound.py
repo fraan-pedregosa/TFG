@@ -147,37 +147,24 @@ def generate_audio():
         error = None
         if not title or not duration or not prompt:
             error = 'Debes completar todos los campos'
-        if error is not None:
-            flash(error)
-        else:
-            sound_db = get_sound_db()  # Llama a la función para obtener la colección de MongoDB
-            sound_db.insert_one({
-                'email': g.user['email'],
-                'title': title,
-                'duration': duration,
-                'prompt': prompt
 
-            })
-        return redirect(url_for('sound.index'))
-    return render_template('sound/create.html')
+        # Enviar solicitud al módulo de IA
+        response = requests.post('http://localhost:7860/generateaudio', data={'title': title, 'prompt': prompt, 'duration': duration})
 
-        # # Enviar solicitud al módulo de IA
-        # response = requests.post('http://localhost:7860/generateaudio', data={'title': title, 'prompt': prompt, 'duracion': duracion})
+        # Verificar el tipo de contenido de la respuesta
+        if response.status_code == 200:
 
-        # # Verificar el tipo de contenido de la respuesta
-        # if response.status_code == 200:
+            # La respuesta es el audio en formato de bytes
+            audio_data = response.content
+            ruta = title+'.wav'
+            # Guardar el audio en el servidor
+            with open(ruta, 'wb') as audio_file:
+                audio_file.write(audio_data)
 
-        #     # La respuesta es el audio en formato de bytes
-        #     audio_data = response.content
-
-        #     # Guardar el audio en el servidor
-        #     with open('.wav', 'wb') as audio_file:
-        #         audio_file.audiowrite(audio_data)
-
-        #     # Guardar la ruta del audio en la base de datos
+            # Guardar la ruta del audio en la base de datos
             
-        #     return jsonify({"message": "Audio generado exitosamente"}), 200
-        # else:
-        #     # La respuesta es un mensaje de error en formato JSON
-        #     error_message = response.json().get('error', 'Error desconocido')
-        #     return jsonify({"error": error_message}), 500
+            return jsonify({"message": "Audio generado exitosamente"}), 200
+        else:
+            # La respuesta es un mensaje de error en formato JSON
+            error_message = response.json().get('error', 'Error desconocido')
+            return jsonify({"error": error_message}), 500
