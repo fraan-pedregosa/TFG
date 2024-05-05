@@ -70,46 +70,48 @@
 {% endfor %}
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-  // Selecciona todos los elementos de clase 'green-audio-player'
   const players = document.querySelectorAll('.green-audio-player');
+  let currentAudio = null; // Referencia al audio que se está reproduciendo actualmente
 
-  // Itera sobre cada elemento y agrega el evento 'click' al botón de reproducción
   players.forEach(function (player) {
     const audio = player.querySelector('audio');
     const playPauseBtn = player.querySelector('.play-pause-btn');
     const currentTimeDisplay = player.querySelector('.current-time');
 
-    // Agrega un evento 'click' al botón de reproducción
     playPauseBtn.addEventListener('click', function () {
       const playIcon = playPauseBtn.querySelector('.play-icon');
       const pauseIcon = playPauseBtn.querySelector('.pause-icon');
+
       if (audio.paused) {
-        audio.play(); // Si el audio está pausado, reproducelo
-        playIcon.style.display = 'none'; // Oculta el icono de reproducción
-        pauseIcon.style.display = ''; // Muestra el icono de pausa
+        if (currentAudio && currentAudio !== audio) {
+          currentAudio.pause(); // Pausa el audio que se está reproduciendo actualmente
+          currentAudio.parentNode.querySelector('.play-icon').style.display = '';
+          currentAudio.parentNode.querySelector('.pause-icon').style.display = 'none';
+        }
+
+        audio.play(); // Reproduce el nuevo audio
+        playIcon.style.display = 'none';
+        pauseIcon.style.display = '';
+        currentAudio = audio; // Actualiza el audio que se está reproduciendo actualmente
       } else {
-        audio.pause(); // Si el audio está reproduciendo, pausalo
-        playIcon.style.display = ''; // Muestra el icono de reproducción
-        pauseIcon.style.display = 'none'; // Oculta el icono de pausa
+        audio.pause();
+        playIcon.style.display = '';
+        pauseIcon.style.display = 'none';
+        currentAudio = null; // No hay ningún audio reproduciéndose
       }
     });
 
-    // Agrega un evento 'timeupdate' al audio
     audio.addEventListener('timeupdate', function () {
-      // Actualiza el tiempo actual
       const minutes = Math.floor(audio.currentTime / 60);
       const seconds = Math.floor(audio.currentTime % 60);
       currentTimeDisplay.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
     });
 
-    // Agrega un evento 'ended' al audio
     audio.addEventListener('ended', function () {
-      // Restablece el tiempo de reproducción
       currentTimeDisplay.textContent = '0:00';
-      // Muestra el icono de reproducción
       playPauseBtn.querySelector('.play-icon').style.display = '';
-      // Oculta el icono de pausa
       playPauseBtn.querySelector('.pause-icon').style.display = 'none';
+      currentAudio = null; // No hay ningún audio reproduciéndose
     });
   });
 });
