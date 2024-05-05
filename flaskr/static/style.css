@@ -431,11 +431,13 @@ input[type=submit] {
 .audio.green-audio-player .controls .slider .progress {
     width: 0;
     height: 100%;
+    left: 0;
 }
 
 .audio.green-audio-player .controls .slider .pin {
-    right: -8px;
+    left: -8px; /* Cambiado de `right: -8px;` a `left: 0;` */
     top: -6px;
+    width: 0;
 }
 
 .audio.green-audio-player .controls span {

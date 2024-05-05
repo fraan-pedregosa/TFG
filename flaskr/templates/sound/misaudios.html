@@ -14,6 +14,7 @@
     <div>
       <h2 class="tituloAudio">{{ sound['title'] }}</h2>
       <div class="about">by {{ sound['email'] }}</div>
+
       <div class="audio green-audio-player">
         <div class="play-pause-btn">
           <svg class="play-icon" viewBox="0 0 18 24" height="24" width="18" xmlns="http://www.w3.org/2000/svg">
@@ -56,8 +57,9 @@
         <audio src="{{ url_for('static', filename='audios/' + sound['path']) }}" crossorigin=""></audio>
 
       </div>
-      <div class="prompt">{{sound['prompt']}}</div>
-      <div class="prompt">{{sound['path']}}</div>
+      <div class="prompt"
+        style="color: rgb(24, 120, 209); text-transform: uppercase; font-family: 'Comic Sans MS', cursive;">{{
+        sound['prompt'] }}</div>
 
     </div>
     <a class="action" href="{{ url_for('sound.update', sound_id=sound['_id']) }}">Edit</a>
@@ -69,52 +71,79 @@
 {% endif %}
 {% endfor %}
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-  const players = document.querySelectorAll('.green-audio-player');
-  let currentAudio = null; // Referencia al audio que se está reproduciendo actualmente
+  document.addEventListener('DOMContentLoaded', function () {
+    const players = document.querySelectorAll('.green-audio-player');
+    let currentAudio = null; // Referencia al audio que se está reproduciendo actualmente
 
-  players.forEach(function (player) {
-    const audio = player.querySelector('audio');
-    const playPauseBtn = player.querySelector('.play-pause-btn');
-    const currentTimeDisplay = player.querySelector('.current-time');
+    players.forEach(function (player) {
+      const audio = player.querySelector('audio');
+      const playPauseBtn = player.querySelector('.play-pause-btn');
+      const currentTimeDisplay = player.querySelector('.current-time');
+      const timeCircle = player.querySelector('.time-circle'); // El círculo del tiempo
+      const timePoint = player.querySelector('.time-point'); // El punto en el círculo del tiempo
 
-    playPauseBtn.addEventListener('click', function () {
-      const playIcon = playPauseBtn.querySelector('.play-icon');
-      const pauseIcon = playPauseBtn.querySelector('.pause-icon');
+      const radius = 100;
 
-      if (audio.paused) {
-        if (currentAudio && currentAudio !== audio) {
-          currentAudio.pause(); // Pausa el audio que se está reproduciendo actualmente
-          currentAudio.parentNode.querySelector('.play-icon').style.display = '';
-          currentAudio.parentNode.querySelector('.pause-icon').style.display = 'none';
+      playPauseBtn.addEventListener('click', function () {
+        const playIcon = playPauseBtn.querySelector('.play-icon');
+        const pauseIcon = playPauseBtn.querySelector('.pause-icon');
+
+        if (audio.paused) {
+          if (currentAudio && currentAudio !== audio) {
+            currentAudio.pause(); // Pausa el audio que se está reproduciendo actualmente
+            currentAudio.parentNode.querySelector('.play-icon').style.display = '';
+            currentAudio.parentNode.querySelector('.pause-icon').style.display = 'none';
+          }
+
+          audio.play(); // Reproduce el nuevo audio
+          playIcon.style.display = 'none';
+          pauseIcon.style.display = '';
+          currentAudio = audio; // Actualiza el audio que se está reproduciendo actualmente
+        } else {
+          audio.pause();
+          playIcon.style.display = '';
+          pauseIcon.style.display = 'none';
+          currentAudio = null; // No hay ningún audio reproduciéndose
         }
+      });
 
-        audio.play(); // Reproduce el nuevo audio
-        playIcon.style.display = 'none';
-        pauseIcon.style.display = '';
-        currentAudio = audio; // Actualiza el audio que se está reproduciendo actualmente
-      } else {
-        audio.pause();
-        playIcon.style.display = '';
-        pauseIcon.style.display = 'none';
+      audio.addEventListener('timeupdate', function () {
+        // Calcula los minutos y segundos actuales
+        const minutes = Math.floor(audio.currentTime / 60);
+        const seconds = Math.floor(audio.currentTime % 60);
+
+        // Actualiza el display del tiempo actual
+        currentTimeDisplay.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
+        // Calcula el progreso del audio
+        const progress = audio.currentTime / audio.duration;
+
+        // Obtén una referencia a la barra de progreso 
+        const progressBar = player.querySelector('.progress');
+
+        // Actualiza el ancho de la barra de progreso 
+        progressBar.style.width = `${progress * 100}%`;
+      });
+
+      audio.addEventListener('ended', function () {
+        const progressBar = player.querySelector('.progress');
+        progressBar.style.width = '0%';
+
+      });
+
+      audio.addEventListener('ended', function () {
+        currentTimeDisplay.textContent = '0:00';
+        playPauseBtn.querySelector('.play-icon').style.display = '';
+        playPauseBtn.querySelector('.pause-icon').style.display = 'none';
         currentAudio = null; // No hay ningún audio reproduciéndose
-      }
-    });
 
-    audio.addEventListener('timeupdate', function () {
-      const minutes = Math.floor(audio.currentTime / 60);
-      const seconds = Math.floor(audio.currentTime % 60);
-      currentTimeDisplay.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-    });
-
-    audio.addEventListener('ended', function () {
-      currentTimeDisplay.textContent = '0:00';
-      playPauseBtn.querySelector('.play-icon').style.display = '';
-      playPauseBtn.querySelector('.pause-icon').style.display = 'none';
-      currentAudio = null; // No hay ningún audio reproduciéndose
+        // Resetea el círculo del tiempo
+        timeCircle.style.strokeDashoffset = timeCircle.getTotalLength();
+        // Resetea la posición del punto
+        timePoint.style.transform = `translate(${radius}px, 0px)`;
+      });
     });
   });
-});
 </script>
 
 {% endblock %}
