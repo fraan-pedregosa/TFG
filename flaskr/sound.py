@@ -3,7 +3,6 @@ from flask import (
 )
 from werkzeug.exceptions import abort
 
-
 from flask import jsonify 
 from flask import current_app
 
@@ -156,14 +155,27 @@ def generate_audio():
 
             # La respuesta es el audio en formato de bytes
             audio_data = response.content
-            ruta = title+'.wav'
+            ruta = 'flaskr/static/audios/'+title+'.wav'
+            rutadb = title+'.wav'
             # Guardar el audio en el servidor
             with open(ruta, 'wb') as audio_file:
                 audio_file.write(audio_data)
 
             # Guardar la ruta del audio en la base de datos
+            if error is not None:
+                flash(error)
+            else:
+                sound_db = get_sound_db()  # Llama a la función para obtener la colección de MongoDB
+                sound_db.insert_one({
+                    'email': g.user['email'],
+                    'title': title,
+                    'duration': duration,
+                    'prompt': prompt,
+                    'path': rutadb
+
+                })
             
-            return jsonify({"message": "Audio generado exitosamente"}), 200
+            return render_template('sound/misaudios.html')
         else:
             # La respuesta es un mensaje de error en formato JSON
             error_message = response.json().get('error', 'Error desconocido')
