@@ -16,8 +16,13 @@
 
       <div class="audio green-audio-player">
         <div class="play-pause-btn">
-          <svg viewBox="0 0 18 24" height="24" width="18" xmlns="http://www.w3.org/2000/svg">
-            <path id="playPause" class="play-pause-icon" d="M18 12L0 24V0" fill-rule="evenodd" fill="#566574"></path>
+          <svg class="play-icon" viewBox="0 0 18 24" height="24" width="18" xmlns="http://www.w3.org/2000/svg">
+            <path id="playPause{{ loop.index }}" class="play-pause-icon" d="M18 12L0 24V0" fill-rule="evenodd"
+              fill="#566574"></path>
+          </svg>
+          <svg class="pause-icon" style="display: none;" viewBox="0 0 18 24" height="24" width="18"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 0h6v24H0zM12 0h6v24h-6z" fill-rule="evenodd" fill="#566574"></path>
           </svg>
         </div>
 
@@ -25,10 +30,10 @@
           <span class="current-time">0:00</span>
           <div data-direction="horizontal" class="slider">
             <div class="progress">
-              <div data-method="rewind" id="progress-pin" class="pin"></div>
+              <div data-method="rewind" id="progress-pin{{ loop.index }}" class="pin"></div>
             </div>
           </div>
-          <span class="total-time">0:00</span>
+          <span class="total-time">0:{{ sound['duration'] }}</span>
         </div>
 
         <div class="volume">
@@ -42,20 +47,100 @@
           <div class="volume-controls hidden">
             <div data-direction="vertical" class="slider">
               <div class="progress">
-                <div data-method="changeVolume" id="volume-pin" class="pin"></div>
+                <div data-method="changeVolume" id="volume-pin{{ loop.index }}" class="pin"></div>
               </div>
             </div>
           </div>
         </div>
 
-        <audio crossorigin=""></audio>
+        <audio src="{{ url_for('static', filename='audios/' + sound['path']) }}" crossorigin=""></audio>
+
       </div>
+      <div class="prompt"
+        style="color: rgb(24, 120, 209); text-transform: uppercase; font-family: 'Comic Sans MS', cursive;">{{
+        sound['prompt'] }}</div>
+
     </div>
   </header>
-  <p class="body">{{ sound['audiolink'] }}</p>
 </article>
 {% endif %}
 {% if not loop.last %}
 {% endif %}
 {% endfor %}
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const players = document.querySelectorAll('.green-audio-player');
+    let currentAudio = null; // Referencia al audio que se está reproduciendo actualmente
+
+    players.forEach(function (player) {
+      const audio = player.querySelector('audio');
+      const playPauseBtn = player.querySelector('.play-pause-btn');
+      const currentTimeDisplay = player.querySelector('.current-time');
+      const timeCircle = player.querySelector('.time-circle'); // El círculo del tiempo
+      const timePoint = player.querySelector('.time-point'); // El punto en el círculo del tiempo
+
+      const radius = 100;
+
+      playPauseBtn.addEventListener('click', function () {
+        const playIcon = playPauseBtn.querySelector('.play-icon');
+        const pauseIcon = playPauseBtn.querySelector('.pause-icon');
+
+        if (audio.paused) {
+          if (currentAudio && currentAudio !== audio) {
+            currentAudio.pause(); // Pausa el audio que se está reproduciendo actualmente
+            currentAudio.parentNode.querySelector('.play-icon').style.display = '';
+            currentAudio.parentNode.querySelector('.pause-icon').style.display = 'none';
+          }
+
+          audio.play(); // Reproduce el nuevo audio
+          playIcon.style.display = 'none';
+          pauseIcon.style.display = '';
+          currentAudio = audio; // Actualiza el audio que se está reproduciendo actualmente
+        } else {
+          audio.pause();
+          playIcon.style.display = '';
+          pauseIcon.style.display = 'none';
+          currentAudio = null; // No hay ningún audio reproduciéndose
+        }
+      });
+
+      audio.addEventListener('timeupdate', function () {
+        // Calcula los minutos y segundos actuales
+        const minutes = Math.floor(audio.currentTime / 60);
+        const seconds = Math.floor(audio.currentTime % 60);
+
+        // Actualiza el display del tiempo actual
+        currentTimeDisplay.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
+        // Calcula el progreso del audio
+        const progress = audio.currentTime / audio.duration;
+
+        // Obtén una referencia a la barra de progreso 
+        const progressBar = player.querySelector('.progress');
+
+        // Actualiza el ancho de la barra de progreso 
+        progressBar.style.width = `${progress * 100}%`;
+      });
+
+      audio.addEventListener('ended', function () {
+        const progressBar = player.querySelector('.progress');
+        progressBar.style.width = '0%';
+
+      });
+
+      audio.addEventListener('ended', function () {
+        currentTimeDisplay.textContent = '0:00';
+        playPauseBtn.querySelector('.play-icon').style.display = '';
+        playPauseBtn.querySelector('.pause-icon').style.display = 'none';
+        currentAudio = null; // No hay ningún audio reproduciéndose
+
+        // Resetea el círculo del tiempo
+        timeCircle.style.strokeDashoffset = timeCircle.getTotalLength();
+        // Resetea la posición del punto
+        timePoint.style.transform = `translate(${radius}px, 0px)`;
+      });
+    });
+  });
+</script>
 {% endblock %}
+
