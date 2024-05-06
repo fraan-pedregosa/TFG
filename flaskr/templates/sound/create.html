@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block header %}
-
+<h3>Mis Audios</h3>
 {% endblock %}
 
 {% block content %}
@@ -14,8 +14,26 @@
     <input name="duration" id="duration" value="{{ request.form['duration'] }}" required>
     <label for="prompt">¿De qué quieres que trate tu audio?</label>
     <input name="prompt" id="prompt" value="{{ request.form['prompt'] }}" required>
+    <label for="public">¿Quieres que tu audio sea público?</label>
 
-    <input class="button" type="submit" value="Generate">
-  </form>
+    <div class="radio-buttons">
+      <label class="radio-button">
+        <input type="radio" name="option" value="option1">
+        <div class="radio-circle"></div>
+        <div class="radio-label">SI</div>
+      </label>
+      <label class="radio-button">
+        <input type="radio" name="option" value="option2">
+        <div class="radio-circle"></div>
+        <div class="radio-label">NO</div>
+      </label>
+
+    </div>
+
+
+</section>
+
+<input class="button" type="submit" value="Generate">
+</form>
 </section>
 {% endblock %}

@@ -9,12 +9,14 @@ html {
     background-size: cover;
     background-position: center;
 }
-.bordesheader{
+
+.bordesheader {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
-    overflow: hidden; /* Aplica los bordes redondeados a los elementos internos */
+    overflow: hidden;
+    /* Aplica los bordes redondeados a los elementos internos */
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.9);
 
 }
@@ -39,9 +41,23 @@ h2 {
     color: #377ba8;
     margin: 1rem 0;
     text-align: center;
-    
 }
 
+h3 {
+    font-family: serif;
+    font-size: 300%;
+    color: #377ba8;
+    text-align: center;
+    background-color: #fff;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    overflow: hidden;
+    /* Aplica los bordes redondeados a los elementos internos */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.9);
+    margin-block-start: 0.5%;
+}
 
 a {
     color: white;
@@ -50,6 +66,10 @@ a {
 hr {
     border: none;
     border-top: 1px solid lightgray;
+}
+
+.contenedorfooter {
+    margin-top: 3%;
 }
 
 footer {
@@ -67,6 +87,7 @@ footer {
     border-bottom-left-radius: 30px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.9);
     font-size: 120%;
+    margin-top: auto;
 
 }
 
@@ -145,7 +166,7 @@ header .action {
     padding: 0.5rem;
 }
 
-.action{
+.action {
     background-image: linear-gradient(to right, #377ba8, #4e54c8);
     color: white;
     font-size: 140%;
@@ -154,6 +175,40 @@ header .action {
     border-bottom-right-radius: 30px;
     border-bottom-left-radius: 30px;
     text-decoration: none;
+}
+
+.actionNew{
+    font-family: serif;
+    font-size: 190%;
+    color: white;
+    text-align: center;
+    background-image: linear-gradient(to right, #377ba8, #4e54c8);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    overflow: hidden;
+    /* Aplica los bordes redondeados a los elementos internos */
+    text-decoration: none;
+}
+
+.contenedornolog {
+    margin-top: 10%;
+
+}
+
+.nolog {
+    background-color: #ffffff;
+    color: #00306e;
+    /* Ajusta este valor a lo que necesites */
+    padding: 3em;
+    /* Añade un poco de espacio alrededor del contenido dentro de cada article */
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+    text-decoration: none;
+
 }
 
 .menu {
@@ -230,6 +285,7 @@ header .action {
     border-bottom-right-radius: 30px;
     border-bottom-left-radius: 30px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.9);
+    margin-top: 1%;
 }
 
 .post>header {
@@ -325,7 +381,7 @@ input[type=submit] {
 
 }
 
-.nueva{
+.nueva {
     background-color: white;
     width: 100%;
     justify-content: center;
@@ -337,7 +393,7 @@ input[type=submit] {
     font-size: 120%;
 }
 
-.edita{
+.edita {
     background-color: white;
     width: 100%;
     justify-content: center;
@@ -361,6 +417,80 @@ input[type=submit] {
     font-size: 120%;
 
 }
+
+.radio-buttons {
+    display: flex;
+    flex-direction: column;
+    color: darkblue;
+    text-align: center;
+    align-items: center;
+}
+
+.radio-button {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.radio-button input[type="radio"] {
+    display: none;
+}
+
+.radio-circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #000000;
+    position: relative;
+    margin-right: 10px;
+}
+
+.radio-circle::before {
+    content: "";
+    display: block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #4f46cf;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: all 0.2s ease-in-out;
+}
+
+.radio-button input[type="radio"]:checked+.radio-circle::before {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.radio-button:nth-of-type(1) input[type="radio"]:checked+.radio-circle::before {
+    background-color: #0d0081;
+}
+
+.radio-button:nth-of-type(2) input[type="radio"]:checked+.radio-circle::before {
+    background-color: #0d0081;
+}
+
+.radio-button:nth-of-type(3) input[type="radio"]:checked+.radio-circle::before {
+    background-color: #0d0081;
+}
+
+.radio-label {
+    font-size: 16px;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.radio-button:hover .radio-circle {
+    border-color: #4f46cf;
+}
+
+.radio-button:hover input[type="radio"]:checked+.radio-circle::before {
+    background-color: #4f46cf;
+}
+
+
 
 .audio.green-audio-player {
     width: 400px;
@@ -435,7 +565,8 @@ input[type=submit] {
 }
 
 .audio.green-audio-player .controls .slider .pin {
-    left: -8px; /* Cambiado de `right: -8px;` a `left: 0;` */
+    left: -8px;
+    /* Cambiado de `right: -8px;` a `left: 0;` */
     top: -6px;
     width: 0;
 }

@@ -1,13 +1,20 @@
 {% extends 'base.html' %}
 
 {% block title %}Audios{% endblock %}
-{% block header %}{% endblock %}
+{% block header %}<h3>Mis Audios</h3>{% endblock %}
 
 {% block content %}
 {% if g.user %}
-<a class="action" href="{{ url_for('sound.create') }}">New</a>
+<a class="actionNew" href="{{ url_for('sound.create') }}">Nuevo Audio</a>
 {% endif %}
+{% if not g.user %}
+<section class="contenedornolog">
+  <a class="nolog" href="{{ url_for('auth.login') }}">Inicia Sesión para poder acceder a tus audios</a>
+</section>
+{% endif %}
+
 {% for sound in sound %}
+
 {% if g.user['email'] == sound['email'] %}
 <article class="post">
   <header>

@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
 {% block title %}Audios{% endblock %}
-{% block header %}{% endblock %}
+{% block header %}<h3>Audios Públicos</h3>{% endblock %}
 
 {% block content %}
 {% for sound in sound %}
-{% if g.user['email'] != sound['email'] %}
+{% if sound['public']=='true' %}
 
 
 <article class="post">
@@ -123,24 +123,15 @@
       });
 
       audio.addEventListener('ended', function () {
-        const progressBar = player.querySelector('.progress');
-        progressBar.style.width = '0%';
-
-      });
-
-      audio.addEventListener('ended', function () {
         currentTimeDisplay.textContent = '0:00';
         playPauseBtn.querySelector('.play-icon').style.display = '';
         playPauseBtn.querySelector('.pause-icon').style.display = 'none';
         currentAudio = null; // No hay ningún audio reproduciéndose
 
-        // Resetea el círculo del tiempo
-        timeCircle.style.strokeDashoffset = timeCircle.getTotalLength();
-        // Resetea la posición del punto
-        timePoint.style.transform = `translate(${radius}px, 0px)`;
+        const progressBar = player.querySelector('.progress');
+        progressBar.style.width = '0%';
       });
     });
   });
 </script>
 {% endblock %}
-

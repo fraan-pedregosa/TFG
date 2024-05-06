@@ -61,7 +61,12 @@ def create():
         title = request.form['title']        
         duration = request.form['duration']
         prompt = request.form['prompt']
+        option = request.form['option']
         
+        if option == "option1":
+            public = "true"
+        else:
+            public = "false"
         
         error = None
         if not title or not duration or not prompt:
@@ -74,7 +79,8 @@ def create():
                 'email': g.user['email'],
                 'title': title,
                 'duration': duration,
-                'prompt': prompt
+                'prompt': prompt,
+                'public': public
 
             })
             return redirect(url_for('sound.index'))
@@ -142,6 +148,12 @@ def generate_audio():
         title = request.form['title']        
         duration = request.form['duration']
         prompt = request.form['prompt']
+        option = request.form['option']
+        
+        if option == "option1":
+            public = "true"
+        else:
+            public = "false"
         
         error = None
         if not title or not duration or not prompt:
@@ -171,7 +183,8 @@ def generate_audio():
                     'title': title,
                     'duration': duration,
                     'prompt': prompt,
-                    'path': rutadb
+                    'path': rutadb,
+                    'public': public
 
                 })
             
