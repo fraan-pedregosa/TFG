@@ -5,16 +5,30 @@
 
 {% block content %}
 <form action="{{ url_for('sound.merge_audio_video') }}" method="post" enctype="multipart/form-data">
-    <div>
-        <h4>Arrastra o sube un audio:</h4>
-        <input type="file" name="audio_file" accept="audio/*">
-        <p>Arrastra aquí el archivo de audio o haz clic para seleccionarlo.</p>
-    </div>
-    <div>
-        <h4>Arrastra o sube un vídeo:</h4>
-        <input type="file" name="video_file" accept="video/*">
-        <p>Arrastra aquí el archivo de vídeo o haz clic para seleccionarlo.</p>
-    </div>
-    <input type="submit" value="Fusionar">
+    <section class="fondoAudioVideo">
+        <h2>Sube un archivo de audio y un archivo de vídeo para fusionarlos</h2>
+        <div>
+            <h4>Sube tú audio:</h4>
+            <label for="audio_file" class="custom-file-upload">Seleccionar archivo</label>
+            <input type="file" id="audio_file" name="audio_file" accept="audio/*" style="display: none;">
+            <span id="audio_file_name">Ningún archivo seleccionado</span>
+        </div>
+        <div>
+            <h4>Sube tú vídeo:</h4>
+            <label for="video_file" class="custom-file-upload">Seleccionar archivo</label>
+            <input type="file" id="video_file" name="video_file" accept="video/*" style="display: none;">
+            <span id="video_file_name">Ningún archivo seleccionado</span>
+        </div>
+    </section>
+    <input class="button" type="submit" value="Fusionar">
 </form>
+
+<script>
+document.getElementById('audio_file').onchange = function () {
+    document.getElementById('audio_file_name').textContent = this.value.split('\\').pop();
+};
+document.getElementById('video_file').onchange = function () {
+    document.getElementById('video_file_name').textContent = this.value.split('\\').pop();
+};
+</script>
 {% endblock %}

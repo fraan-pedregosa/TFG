@@ -634,3 +634,31 @@ input[type=submit] {
     border-bottom-left-radius: 30px;
     text-decoration: none;
 }
+
+.fondoAudioVideo{
+    background-color: white;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+
+}
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    background-color: #4CAF50; 
+    border: none; 
+    color: white;
+    text-align: center;
+    text-decoration: none; 
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s; 
+}
+
+.custom-file-upload:hover {
+    background-color: #45a049; 
+}
