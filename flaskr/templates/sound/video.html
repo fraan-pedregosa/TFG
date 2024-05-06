@@ -9,26 +9,30 @@
         <h2>Sube un archivo de audio y un archivo de vídeo para fusionarlos</h2>
         <div>
             <h4>Sube tú audio:</h4>
-            <label for="audio_file" class="custom-file-upload">Seleccionar archivo</label>
-            <input type="file" id="audio_file" name="audio_file" accept="audio/*" style="display: none;">
-            <span id="audio_file_name">Ningún archivo seleccionado</span>
+            <div class="file-upload-container">
+                <label for="audio_file" class="custom-file-upload">Seleccionar archivo</label>
+                <input type="file" id="audio_file" name="audio_file" accept="audio/*" style="display: none;">
+                <span id="audio_file_name">Ningún archivo seleccionado</span>
+            </div>
         </div>
         <div>
             <h4>Sube tú vídeo:</h4>
-            <label for="video_file" class="custom-file-upload">Seleccionar archivo</label>
-            <input type="file" id="video_file" name="video_file" accept="video/*" style="display: none;">
-            <span id="video_file_name">Ningún archivo seleccionado</span>
+            <div class="file-upload-container">
+                <label for="video_file" class="custom-file-upload">Seleccionar archivo</label>
+                <input type="file" id="video_file" name="video_file" accept="video/*" style="display: none;">
+                <span id="video_file_name">Ningún archivo seleccionado</span>
+            </div>
         </div>
     </section>
     <input class="button" type="submit" value="Fusionar">
 </form>
 
 <script>
-document.getElementById('audio_file').onchange = function () {
-    document.getElementById('audio_file_name').textContent = this.value.split('\\').pop();
-};
-document.getElementById('video_file').onchange = function () {
-    document.getElementById('video_file_name').textContent = this.value.split('\\').pop();
-};
+    document.getElementById('audio_file').onchange = function () {
+        document.getElementById('audio_file_name').textContent = this.value.split('\\').pop();
+    };
+    document.getElementById('video_file').onchange = function () {
+        document.getElementById('video_file_name').textContent = this.value.split('\\').pop();
+    };
 </script>
 {% endblock %}

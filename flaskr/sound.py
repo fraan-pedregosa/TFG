@@ -172,8 +172,26 @@ def merge_audio_video():
     audio = AudioFileClip(audio_filename)
 
     video = video.set_audio(audio)
+    
 
-    output_filename = os.path.join(os.getcwd(), "output.mp4")
+    nombre_audio = ''
+    nombre_video = ''
+    for char in audio_filename:
+        if char == '.':
+            break
+        else:
+            nombre_audio = nombre_audio + char
+    
+    for char in video_filename:
+        if char == '.':
+            break
+        else:
+            nombre_video = nombre_video + char
+    
+    nombre_archivo = nombre_video + nombre_audio + '.mp4'
+    
+    
+    output_filename = os.path.join(os.getcwd(), nombre_archivo)
     video.write_videofile(output_filename)
 
     return send_file(output_filename, as_attachment=True)
