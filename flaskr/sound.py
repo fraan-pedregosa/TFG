@@ -54,6 +54,7 @@ def misaudios():
     sound = sound_collection.find().sort('_id', pymongo.DESCENDING)
     return render_template('sound/misaudios.html', sound=sound)
 
+
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required
 def create():
@@ -85,7 +86,6 @@ def create():
             })
             return redirect(url_for('sound.index'))
     return render_template('sound/create.html')
-
 
 def get_sound(sound_id, check_author=True):
     sound_collection = get_sound_db()
@@ -139,6 +139,45 @@ def delete(sound_id):
     
     sound_collection.delete_one({'_id': ObjectId(sound_id)})
     return redirect(url_for('sound.index'))
+
+@bp.route('/consejos')
+def consejos():
+    return render_template('sound/consejos.html')
+
+from werkzeug.utils import secure_filename
+from moviepy.editor import VideoFileClip, AudioFileClip
+from flask import send_file
+import os
+
+
+@bp.route('/merge_audio_video', methods=['GET'])
+def show_merge_page():
+    return render_template('sound/video.html')
+
+@bp.route('/merge_audio_video', methods=['POST'])
+def merge_audio_video():
+    audio_file = request.files['audio_file']
+    video_file = request.files['video_file']
+
+    if not audio_file.filename or not video_file.filename:
+        return "Error: No se proporcionaron archivos de audio o video", 400
+
+    audio_filename = secure_filename(audio_file.filename)
+    video_filename = secure_filename(video_file.filename)
+
+    audio_file.save(audio_filename)
+    video_file.save(video_filename)
+
+    video = VideoFileClip(video_filename)
+    audio = AudioFileClip(audio_filename)
+
+    video = video.set_audio(audio)
+
+    output_filename = os.path.join(os.getcwd(), "output.mp4")
+    video.write_videofile(output_filename)
+
+    return send_file(output_filename, as_attachment=True)
+
 
 @bp.route('/generateaudio', methods=('GET', 'POST'))
 @login_required

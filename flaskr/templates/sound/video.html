@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Audios{% endblock %}
+{% block header %}<h3>Fusiona tus vídeos y audios para una nuevo contenido mejorado</h3>{% endblock %}
+
+{% block content %}
+<form action="{{ url_for('sound.merge_audio_video') }}" method="post" enctype="multipart/form-data">
+    <div>
+        <h4>Arrastra o sube un audio:</h4>
+        <input type="file" name="audio_file" accept="audio/*">
+        <p>Arrastra aquí el archivo de audio o haz clic para seleccionarlo.</p>
+    </div>
+    <div>
+        <h4>Arrastra o sube un vídeo:</h4>
+        <input type="file" name="video_file" accept="video/*">
+        <p>Arrastra aquí el archivo de vídeo o haz clic para seleccionarlo.</p>
+    </div>
+    <input type="submit" value="Fusionar">
+</form>
+{% endblock %}

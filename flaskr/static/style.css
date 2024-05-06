@@ -621,3 +621,16 @@ input[type=submit] {
     left: -5px;
     top: -8px;
 }
+
+.acknowledgements{
+    background-color: white;
+    color: #00306e;
+    /* Ajusta este valor a lo que necesites */
+    padding: 3em;
+    /* Añade un poco de espacio alrededor del contenido dentro de cada article */
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+    text-decoration: none;
+}
