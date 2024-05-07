@@ -117,8 +117,6 @@ def update(sound_id):
             error = 'Debes completar el campo de título'
         if not duration:
             error = 'Debes completar el campo de duración'
-        if not prompt:
-            error = 'Debes completar el campo de prompt'
             
         if error is not None:
             flash(error)
