@@ -109,19 +109,23 @@ def update(sound_id):
     
     if request.method == 'POST':
         title = request.form['title']
-        duration = request.form['duration']
-        prompt = request.form['prompt']
+        option = request.form['option']
         
+        if option == "option1":
+            public = "true"
+        else:
+            public = "false"
+
         error = None
         if not title:
             error = 'Debes completar el campo de título'
-        if not duration:
-            error = 'Debes completar el campo de duración'
-            
+        if not public:
+            error = 'Debes seleccionar una opción de privacidad'
+         
         if error is not None:
             flash(error)
         else:
-            sound_collection.update_one({'_id': ObjectId(sound_id)}, {'$set': {'title': title, 'duration': duration, 'prompt': prompt}})
+            sound_collection.update_one({'_id': ObjectId(sound_id)}, {'$set': {'title': title, 'public': public}})
             updated_sound = sound_collection.find_one({'_id': ObjectId(sound_id)})
             return redirect(url_for('sound.index'))
 
@@ -191,7 +195,8 @@ def merge_audio_video():
     
     output_filename = os.path.join(os.getcwd(), nombre_archivo)
     video.write_videofile(output_filename)
-
+    
+    
     return send_file(output_filename, as_attachment=True)
 
 

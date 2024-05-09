@@ -10,9 +10,24 @@
   <form method="post">
     <label for="title">Título del audio</label>
     <input name="title" id="title" value="{{ request.form['title'] or sound.title }}" required>
-    <label for="duration">Duración</label>
+    <!-- <label for="duration">Duración</label>
     <input name="duration" id="duration" value="{{ request.form['duration'] or sound.duration}}" required>
-    <input name="prompt" id="prompt" value="{{ request.form['prompt'] or sound.prompt}}" style="display: none;">
+    <input name="prompt" id="prompt" value="{{ request.form['prompt'] or sound.prompt}}" style="display: none;"> -->
+    <label for="public">¿Quieres que tu audio sea público?</label>
+
+    <div class="radio-buttons">
+      <label class="radio-button">
+        <input type="radio" name="option" value="option1">
+        <div class="radio-circle"></div>
+        <div class="radio-label">SI</div>
+      </label>
+      <label class="radio-button">
+        <input type="radio" name="option" value="option2">
+        <div class="radio-circle"></div>
+        <div class="radio-label">NO</div>
+      </label>
+
+    </div>
 
     <input class="button" type="submit" value="Save">
 
