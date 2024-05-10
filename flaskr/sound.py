@@ -244,7 +244,9 @@ def generate_audio():
                     'duration': duration,
                     'prompt': prompt,
                     'path': rutadb,
-                    'public': public
+                    'public': public,
+                    'likes':[],
+                    'numLikes': 0
 
                 })
             
