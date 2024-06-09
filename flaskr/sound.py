@@ -92,10 +92,10 @@ def get_sound(sound_id, check_author=True):
     sound = sound_collection.find_one({'_id': ObjectId(sound_id)})
 
     if sound is None:
-        abort(404, f"Sound id {sound_id} doesn't exist.")
+        abort(404, f"El audio con id {sound_id} no existe.")
 
     if check_author and sound['email'] != g.user['email']:
-        abort(403)
+        abort(403, f"No tienes permiso para modificar o elimiar este audio.")
 
     return sound
 
@@ -105,7 +105,7 @@ def update(sound_id):
     sound_collection = get_sound_db()
     sound = get_sound(sound_id, check_author=True)
     if sound is None:
-        abort(404, "Sound doesn't exist or you don't have permission to update it.")
+        abort(404, "El audio no existe o no tienes permiso para modificarlo.")
     
     if request.method == 'POST':
         title = request.form['title']
@@ -137,7 +137,7 @@ def delete(sound_id):
     sound_collection = get_sound_db()
     sound = get_sound(sound_id, check_author=True)
     if sound is None:
-        abort(404, "Sound doesn't exist or you don't have permission to delete it.")
+        abort(404, "El audio no existe o no tienes permiso para eliminarlo.")
     
     sound_collection.delete_one({'_id': ObjectId(sound_id)})
     return redirect(url_for('sound.index'))
@@ -148,6 +148,7 @@ def consejos():
 
 from werkzeug.utils import secure_filename
 from moviepy.editor import VideoFileClip, AudioFileClip
+from moviepy.editor import CompositeAudioClip
 from flask import send_file
 import os
 
@@ -155,6 +156,7 @@ import os
 @bp.route('/merge_audio_video', methods=['GET'])
 def show_merge_page():
     return render_template('sound/video.html')
+
 
 @bp.route('/merge_audio_video', methods=['POST'])
 def merge_audio_video():
@@ -173,8 +175,14 @@ def merge_audio_video():
     video = VideoFileClip(video_filename)
     audio = AudioFileClip(audio_filename)
 
-    video = video.set_audio(audio)
-    
+    # Get the original audio from the video
+    original_audio = video.audio
+
+    # Create a composite audio clip with the original audio and the new audio
+    composite_audio = CompositeAudioClip([original_audio, audio])
+
+    # Set the audio of the video to the composite audio clip
+    video = video.set_audio(composite_audio)
 
     nombre_audio = ''
     nombre_video = ''
@@ -192,10 +200,8 @@ def merge_audio_video():
     
     nombre_archivo = nombre_video + nombre_audio + '.mp4'
     
-    
     output_filename = os.path.join(os.getcwd(), nombre_archivo)
     video.write_videofile(output_filename)
-    
     
     return send_file(output_filename, as_attachment=True)
 
@@ -232,7 +238,6 @@ def generate_audio():
             # Guardar el audio en el servidor
             with open(ruta, 'wb') as audio_file:
                 audio_file.write(audio_data)
-
             # Guardar la ruta del audio en la base de datos
             if error is not None:
                 flash(error)
@@ -249,7 +254,6 @@ def generate_audio():
                     'numLikes': 0
 
                 })
-            
             return render_template('sound/misaudios.html')
         else:
             # La respuesta es un mensaje de error en formato JSON

@@ -29,12 +29,12 @@
 
     </div>
 
-    <input class="button" type="submit" value="Save">
+    <input class="button" type="submit" value="Actualizar">
 
   </form>
   <hr>
   <form action="{{ url_for('sound.delete', sound_id=sound._id) }}" method="post">
-    <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+    <input class="danger" type="submit" value="Eliminar audio" onclick="return confirm('¿Estás seguro?');">
   </form>
 </section>
 {% endblock %}

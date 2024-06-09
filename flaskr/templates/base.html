@@ -12,8 +12,8 @@
         <li><span style="font-family: 'serif', cursive; color: gold;">{{ g.user['name'] }}</span>
         <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
           {% else %}
-        <li><a class="enlacesSesion" href="{{ url_for('auth.register') }}">Register</a>
-        <li><a class="enlacesSesion" href="{{ url_for('auth.login') }}">Log In</a>
+        <li><a class="enlacesSesion" href="{{ url_for('auth.register') }}">Regístrate</a>
+        <li><a class="enlacesSesion" href="{{ url_for('auth.login') }}">Inicia Sesión</a>
           {% endif %}
       </ul>
     </nav>
@@ -36,14 +36,14 @@
   {% block content %}{% endblock %}
 </section>
 <section class="contenedorfooter">
-<footer>
-  <ul>
-    <li><a class="footer-link" href="#">Cómo se hizo</a>
-    <li><a class="footer-link" href="#">Información</a>
-    <li><a class="footer-link" href="#">Contacto</a>
-    <li><a class="footer-link" href="#">Términos y políticas</a>
-  </ul>
-</footer>
+  <footer>
+    <ul>
+      <li><a class="footer-link" href="#">Cómo se hizo</a>
+      <li><a class="footer-link" href="#">Información</a>
+      <li><a class="footer-link" href="#">Contacto</a>
+      <li><a class="footer-link" href="#">Términos y políticas</a>
+    </ul>
+  </footer>
 </section>
 
 <!-- <script>// Cuando la página se carga, verifica si hay un enlace activo almacenado en el almacenamiento local
