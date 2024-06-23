@@ -10,7 +10,7 @@
       <ul>
         {% if g.user %}
         <li><span style="font-family: 'serif', cursive; color: gold;">{{ g.user['name'] }}</span>
-        <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
+        <li><a href="{{ url_for('auth.logout') }}">Cerrar Sesión</a>
           {% else %}
         <li><a class="enlacesSesion" href="{{ url_for('auth.register') }}">Regístrate</a>
         <li><a class="enlacesSesion" href="{{ url_for('auth.login') }}">Inicia Sesión</a>

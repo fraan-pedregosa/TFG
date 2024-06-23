@@ -5,7 +5,7 @@
 
 {% block content %}
 <section class="login">
-<h2>{% block title %}Log In{% endblock %}</h2>
+<h2>{% block title %}Inicia Sesión{% endblock %}</h2>
 <form method="POST" action="{{ url_for('auth.login') }}"> <label for="email">Email</label>
     <input type="email" name="email" id="email" required>
     <label for="password">Password</label>
