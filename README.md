@@ -4,9 +4,14 @@ Para ejecutar el proyecto se debe ejecutar los siguientes comandos en una termin
 situada en el mismo directorio en el que se encuentra el resto de directorios como
 flaskr, dump, etc:
 
+  mongod //para iniciar la conexión de la base de datos
+
   . venv/bin/activate
+  
   export FLASK_ENV=development
+  
   export FLASK_APP=flaskr
+  
   flask run
 
 Una vez que ejecutemos el comando "flask run" nos mostrará la dirección donde está corriendo la aplicación.
